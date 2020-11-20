@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Kanban fait maison</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+</head>
+
+<body>
+    <section class="section ">
+        <div class="container">
+            <h1 class="title">
+                Kanban fait maison
+            </h1>
+            <div class="columns">
+                <div class="column is-full">
+                    <div class="card-lists columns">
+                    </div>
+                </div>
+                <div class="column">
+                    <button class="button is-success" id="addListButton">
+                        <span class="icon is-small">
+                            <i class="fas fa-plus"></i>
+                        </span>
+                        &nbsp; Ajouter une liste
+                    </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Les modales -->
+    <div class="modal" id="addListModal">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <form action="" method="POST">
+                <header class="modal-card-head">
+                    <p class="modal-card-title">Ajouter une liste</p>
+                    <button class="delete close" type="button" aria-label="close"></button>
+                </header>
+                <section class="modal-card-body">
+                    <div class="field">
+                        <label class="label">Nom</label>
+                        <div class="control">
+                            <input type="text" class="input" name="name" value="" placeholder="Nom de la liste">
+                        </div>
+                    </div>
+                </section>
+                <footer class="modal-card-foot">
+                    <button class="button is-success">Save changes</button>
+                    <button class="button close" type="button">Cancel</button>
+                </footer>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal" id="showTagList">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <form action="" method="POST">
+                <header class="modal-card-head">
+                    <p class="modal-card-title">Ajouter un tag à la carte</p>
+                    <button class="delete close" type="button" aria-label="close"></button>
+                </header>
+                <section class="modal-card-body">
+                    <input type="hidden" name="card-id" class="card-id" value="">
+                    <div class="field tag-listing">
+                        
+                    </div>
+                </section>
+                <footer class="modal-card-foot">
+                    <button class="button is-success button--add-tag-to-card">Save changes</button>
+                    <button class="button close" type="button">Cancel</button>
+                </footer>
+            </form>
+            <button class="button is-info button--add-tag">Create tag</button>
+        </div>
+    </div>
+
+    <div class="modal" id="addTagModal">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <form action="" method="POST">
+                <header class="modal-card-head">
+                    <p class="modal-card-title">Ajouter un tag</p>
+                    <button class="delete close" type="button" aria-label="close"></button>
+                </header>
+                <section class="modal-card-body">
+                    <div class="field">
+                        <label class="label">Nom</label>
+                        <div class="control">
+                            <input type="text" class="input" name="name" value="" placeholder="Nom de la liste">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label">Couleur</label>
+                        <dov class="control">
+                            <input type="color" name="color" id="color" value="#ffffff">
+                        </dov>
+                    </div>
+                </section>
+                <footer class="modal-card-foot">
+                    <button class="button is-success">Save changes</button>
+                    <button class="button close" type="button">Cancel</button>
+                </footer>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal" id="addCardModal">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <form action="" method="POST">
+                <header class="modal-card-head">
+                    <p class="modal-card-title">Ajouter une carte</p>
+                    <button class="delete close" type="button" aria-label="close"></button>
+                </header>
+                <section class="modal-card-body">
+                    <div class="field">
+                        <label class="label">Contenu</label>
+                        <div class="control">
+                            <input type="text" class="input" name="content" value="" placeholder="Contenu de la carte">
+                            <input type="hidden" name="list_id">
+                        </div>
+                        <label class="label">Couleur de la carte</label>
+                        <div class="control">
+                            <input type="color" class="input" name="color" value="#ffffff">
+                        </div>
+                    </div>
+                </section>
+                <footer class="modal-card-foot">
+                    <button class="button is-success">Save changes</button>
+                    <button class="button close" type="button">Cancel</button>
+                </footer>
+            </form>
+        </div>
+    </div>
+
+    <!-- Chargement de mon fichier JS -->
+    <!-- <script src="./assets/js/app.js"></script>
+    <script src="./assets/js/list.js"></script>
+    <script src="./assets/js/card.js"></script>
+    <script src="./assets/js/tag.js"></script> -->
+    <script src="./js/main.js"></script>
+
+
+
+    <!-- Mes templates -->
+    <template id="template-list">
+        <!-- list -->
+        <div class="column is-one-quarter panel" list-id="A">
+            <div class="panel-heading has-background-info">
+                <div class="columns">
+                    <div class="column">
+                        <h2 class="has-text-white">Perso</h2>
+                    </div>
+
+                    <div class="column is-narrow">
+                        <a href="#" class="is-pulled-right button--add-card" title="Ajouter une carte">
+                            <span class="icon is-small has-text-white">
+                                <i class="fas fa-plus"></i>
+                            </span>
+                        </a>
+                    </div>
+                    <div class="column is-narrow">
+                        <a href="#" class="is-pulled-right button--delete-list" title="Supprimer la liste">
+                            <span class="icon is-small has-text-white">
+                                <i class="fas fa-trash-alt"></i>
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-block is-block has-background-light">
+                
+            </div>
+        </div>
+        <!--/ list -->
+    </template>
+    <template id="template-card">
+        <!-- card -->
+        <div class="box" card-id="M">
+            <div class="card-tags">
+
+            </div>
+            <div class="columns">
+                <div class="column card-name">
+                    Brancher l'API
+                </div>
+
+                <form action="" method="POST" class="is-hidden">
+                    <div class="field has-addons">
+                        <div class="control">
+                            <input type="text" class="input is-small" name="content" value="" placeholder="Contenu de la carte">
+                            <input type="color" name="color" value="#ffffff">
+                        </div>
+                        <div class="control">
+                            <button class="button is-small is-success">Valider</button>
+                        </div>
+                    </div>
+                </form>
+
+
+                <div class="column is-narrow">
+                    <a href="#" class="button--add-tag" title="Ajouter un tag à la carte">
+                        <span class="icon is-small has-text-dark">
+                            <i class="fas fa-tag"></i>
+                        </span>
+                    </a>
+                    <a href="#" class="button--edit-card" title="Editer la carte">
+                        <span class="icon is-small has-text-primary">
+                            <i class="fas fa-pencil-alt"></i>
+                        </span>
+                    </a>
+                    <a href="#" class="button--delete-card" title="Supprimer la carte">
+                        <span class="icon is-small has-text-danger">
+                            <i class="fas fa-trash-alt"></i>
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!--/ card -->
+    </template>
+    <template id="template-tag">
+        <label class="tag-radio">
+        <input type="radio" name="radio-tag" class="tag" value="">
+            <span class="column tag-name">
+                
+            </span>
+
+            <form action="" method="POST" class="is-hidden">
+                <div class="field has-addons">
+                    <div class="control">
+                        <input type="hidden" name="tag-id" value>
+                        <input type="text" class="input is-small tagname" name="name" value="" placeholder="Nom de l'étiquette">
+                        <input type="color" class="tag-color" name="color" value="">
+                    </div>
+                    <div class="control">
+                        <button class="button is-small is-success">Valider</button>
+                    </div>
+                </div>
+            </form>
+
+            <span class="column is-narrow">
+                <a href="#" class="button--edit-tag" title="Editer la carte">
+                    <span class="icon is-small has-text-primary">
+                        <i class="fas fa-pencil-alt"></i>
+                    </span>
+                </a>
+                <a href="#" class="button--delete-tag" title="Supprimer la carte">
+                    <span class="icon is-small has-text-danger">
+                        <i class="fas fa-trash-alt"></i>
+                    </span>
+                </a>
+            </span>
+        </label>
+    </template>
+    <template id="template-tag-in-card">
+        <div class="tag is-normal" tag-id="">
+            <span class="tag-name"></span>
+            <span>
+                <a href="#" class="button--delete-tag-from-card" title="Supprimer le tag de la carte">
+                    <span class="icon is-small has-text-white">
+                        <i class="fas fa-trash-alt"></i>
+                    </span>
+                </a>
+            </span>
+        </div>
+    </template>
+
+</body>
+
+</html>

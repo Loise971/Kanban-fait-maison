@@ -1,0 +1,129 @@
+### service indisponible
+GET http://localhost:5050/404
+
+############################## LISTS #############################
+
+### récupération de toutes les listes
+GET http://localhost:5050/lists
+
+### récupération d'une liste
+GET http://localhost:5050/lists/1
+
+### création d'une liste
+POST http://localhost:5050/lists
+Content-Type: application/x-www-form-urlencoded
+
+name=corona
+&position=1
+
+### modification d'une liste
+PATCH http://localhost:5050/lists/1
+Content-Type: application/x-www-form-urlencoded
+
+name=liste test patch
+&position=1
+
+### création d'une liste via PUT
+PUT http://localhost:5050/lists
+Content-Type: application/x-www-form-urlencoded
+
+name=liste test put 3
+&position=2
+
+### modification d'une liste via PUT
+PUT http://localhost:5050/lists/2
+Content-Type: application/x-www-form-urlencoded
+
+name=liste test put 1
+&position=1
+
+### suppression d'une liste
+DELETE http://localhost:5050/lists/17
+
+############################## CARDS #############################
+
+### récupération de toutes les cartes d'une liste
+GET http://localhost:5050/lists/9/cards
+
+### récupération d'une carte
+GET http://localhost:5050/cards/4
+
+### création d'une carte
+POST http://localhost:5050/cards
+Content-Type: application/x-www-form-urlencoded
+
+content=carte test post
+&color=#f0f
+&lists_id=1
+
+### modification d'une carte
+PATCH http://localhost:5050/cards/1
+Content-Type: application/x-www-form-urlencoded
+
+content=carte test patch
+&color=#f0f
+&position=1
+
+### création d'une carte via PUT
+PUT http://localhost:5050/cards
+Content-Type: application/x-www-form-urlencoded
+
+content=carte test put 3
+&color=#f0f
+&lists_id=1
+
+### modification d'une carte via PUT
+PUT http://localhost:5050/cards/2
+Content-Type: application/x-www-form-urlencoded
+
+content=carte test put 1
+&color=#f0f
+&position=1
+
+### suppression d'une carte
+DELETE http://localhost:5050/cards/5
+
+############################## TAGS #############################
+
+### récupération de tous les tagss
+GET http://localhost:5050/tags
+
+### création d'un tags
+POST http://localhost:5050/tags
+Content-Type: application/x-www-form-urlencoded
+
+name=urgentissime
+&color=#f0f
+
+### modification d'un tags
+PATCH http://localhost:5050/tags/1
+Content-Type: application/x-www-form-urlencoded
+
+name=URGENT
+&color=#F0F
+
+### création d'un tags via PUT
+PUT http://localhost:5050/tags
+Content-Type: application/x-www-form-urlencoded
+
+name=tags put 3
+&color=#f0f
+
+### modification d'un tags via PUT
+PUT http://localhost:5050/tags/2
+Content-Type: application/x-www-form-urlencoded
+
+name=tags put 1
+&color=#f0f
+
+### suppression d'un tags
+DELETE http://localhost:5050/tags/2
+
+### associé un tag a une carte
+POST http://localhost:5050/cards/2/tags
+Content-Type: application/x-www-form-urlencoded
+
+tagId=1
+
+### dissocié un tag d'une carte
+DELETE http://localhost:5050/cards/2/tags/1

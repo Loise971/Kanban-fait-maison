@@ -1,0 +1,9 @@
+body {
+  background-color: #8dc8eb;
+  height: 100vh;
+}
+
+.card-lists {
+  overflow-x: auto;
+}
+
